@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_CONTROLM1" Id="{0b944a9e-05c1-42f6-b31e-2a2724ae5be4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_CONTROLM1
+VAR
+	TransferStart : TON;
+	InTransferStartTimer : BOOL;
+	OkTOKeepTransfering : BOOL;
+	OkToStartTransfer : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Auto AND Start THEN
+	GVL.StartMachine := TRUE;
+END_IF
+
+IF Auto AND NOT Stop OR Reset THEN
+	GVL.StartMachine := FALSE;
+END_IF
+
+IF GVL.StartMachine THEN
+	
+	// conveyor 1 ok to start
+	IF (PRG_TransferLeft01.intnFBMotor.outRunning AND 
+		PRG_TransferLeft02.intnFBMotor.outRunning AND 
+			(PRG_AtTransfer01.intnFBSensor.outSensorON OR
+ 			PRG_AtEntry01.intnFBSensor.outSensorON)) THEN
+		
+		GVL.Conveyor01OKToRun := FALSE;
+		
+	ELSIF ((PRG_TransferLeft01.intnFBMotor.outRunning AND 
+			PRG_TransferLeft02.intnFBMotor.outRunning) AND 
+			(NOT PRG_AtTransfer01.intnFBSensor.outSensorON AND
+ 			PRG_AtEntry01.intnFBSensor.outSensorON)) THEN
+			
+		GVL.Conveyor01OKToRun := FALSE;	
+		
+	ELSIF (PRG_TransferLeft01.intnFBMotor.outRunning AND 
+			PRG_TransferLeft02.intnFBMotor.outRunning AND 
+			(PRG_AtEntry01.intnFBSensor.outSensorON OR 
+			PRG_AtTransfer01.intnFBSensor.outSensorON)) THEN
+			
+		GVL.Conveyor01OKToRun := FALSE;
+		
+	ELSE
+		
+		GVL.Conveyor01OKToRun := TRUE;	
+		
+	END_IF
+	
+	// conveyor 2 ok to start	
+	IF ((PRG_TransferLeft01.intnFBMotor.outRunning AND 
+		PRG_TransferLeft02.intnFBMotor.outRunning) AND 
+		PRG_AtEntry02.intnFBSensor.outSensorON) THEN
+		
+		GVL.Conveyor02OKToRun := FALSE;
+		
+	ELSIF (PRG_AtTransfer02.intnFBSensor.outSensorON AND 
+			PRG_AtEntry02.intnFBSensor.outSensorON) THEN
+			
+		GVL.Conveyor02OKToRun := FALSE;
+		
+	ELSE
+		
+		GVL.Conveyor02OKToRun := TRUE;
+		
+	END_IF
+			
+END_IF
+
+// ok to transfer left
+IF (PRG_AtExit01.intnFBSensor.outSensorON OR 
+	PRG_AtTransfer01.intnFBSensor.outSensorON) AND 
+	PRG_ExitConvetor.intnFBMotor.outRunning THEN
+	
+	GVL.TransferOKToStart := FALSE;
+	
+ELSIF PRG_AtEntry01.intnFBSensor.outSensorON AND 
+	PRG_AtTransfer01.intnFBSensor.outSensorON AND  
+	PRG_Conveyor01.intnFBMotor.outRunning THEN
+	
+	GVL.TransferOKToStart := FALSE;
+	
+ELSIF (PRG_TransferLeft01.intnFBMotor.outRunning AND 
+		PRG_TransferLeft02.intnFBMotor.outRunning AND 
+		PRG_AtTransfer01.intnFBSensor.outSensorON) THEN	
+		
+	GVL.TransferOKToStart := FALSE;
+	
+ELSIF (NOT PRG_TransferLeft01.intnFBMotor.outRunning AND NOT 
+	PRG_TransferLeft02.intnFBMotor.outRunning AND 
+	PRG_AtEntry01.intnFBSensor.outSensorON AND 
+	PRG_Conveyor01.intnFBMotor.outRunning) THEN
+	
+	GVL.TransferOKToStart := FALSE;
+	
+ELSE
+	
+	GVL.TransferOKToStart := TRUE;	
+	
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FIO_Read_Inputs" Id="{03c5f2ed-0b5d-45ea-9585-ddbdb361a9ec}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM FIO_Read_Inputs
+VAR
+	
+	ReadInputsErrorID: UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GVL.ReadInputs (
+	sIPAddr := '127.0.0.1',
+	nTCPPort := 505,
+	nUnitID := 255,
+	nQuantity := 16,
+	nMBAddr := 0,
+	cbLength := SIZEOF(GVL.FIO_Inputs),
+	pDestAddr := ADR(GVL.FIO_Inputs),
+	bExecute := TRUE,
+	tTimeout := T#1S,
+	bBusy => ,
+	bError => ,
+	nErrId => ReadInputsErrorID,
+	cbRead => ,
+);
+GVL.ReadInputs(bExecute := FALSE);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_AtEntry02" Id="{4e5493cd-88f3-4e14-b9fc-27d34b252294}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_AtEntry02
+VAR
+	intnFBSensor : FB_Sensors;
+	FEdge : F_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[intnFBSensor (
+	iSensor := At_Entry_2,
+	iTimeToActuateSensor := 0,
+);
+
+FEdge (
+	CLK := intnFBSensor.outSensorON,
+);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

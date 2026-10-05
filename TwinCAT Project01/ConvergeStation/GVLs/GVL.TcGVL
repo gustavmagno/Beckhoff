@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL" Id="{c204464c-37d6-4096-a0e9-7099a5701404}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	ReadInputs : FB_MBReadInputs;
+	WriteCoils : FB_MBWriteCoils;
+	FIO_Inputs : ARRAY [0..15] OF BYTE;
+	FIO_Outputs : ARRAY [0..15] OF BYTE;
+	StartMachine : BOOL;
+	Conveyor01OKToRun : BOOL;
+	Conveyor02OKToRun : BOOL;
+	AtExitPulse : BOOL;
+	TransferOKToStart : BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_AtTransfer02" Id="{5c776c09-163c-4b49-9c8d-e338b978bfa8}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_AtTransfer02
+VAR
+	intnFBSensor : FB_Sensors;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[intnFBSensor (
+	iSensor := At_Transfer_2,
+	iTimeToActuateSensor := 0,
+);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

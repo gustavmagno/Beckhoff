@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_Conveyor02" Id="{7ebd5b21-88c1-479c-a9df-88dfa9b674f4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Conveyor02
+VAR
+	intnFBMotor : FB_Motors;
+	intnFBIntlk : FB_Intlk;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[intnFBIntlk (
+	BackwardsInterlock01 := TRUE,
+	BackwardsInterlock02 := TRUE,
+	BackwardsInterlock03 := TRUE,
+	BackwardsInterlock04 := TRUE,
+	BackwardsInterlock05 := TRUE,
+	ForwardInterlock01 := GVL.Conveyor02OKToRun,
+	ForwardInterlock02 := TRUE,
+	ForwardInterlock03 := TRUE,
+	ForwardInterlock04 := TRUE,
+	ForwardInterlock05 := TRUE,
+	oStsInterlockOK => intnFBMotor.inIntlkOK,
+);
+
+intnFBMotor (
+	inStart := GVL.StartMachine,
+	outOTE => Conveyor_2,
+);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

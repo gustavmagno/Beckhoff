@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_Load02" Id="{f61a8cda-c3f2-41cc-8705-7e185157c5c9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Load02
+VAR
+	intnFBMotor : FB_Motors;
+	intnFBIntlk : FB_Intlk;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[intnFBIntlk (
+	BackwardsInterlock01 := TRUE,
+	BackwardsInterlock02 := TRUE,
+	BackwardsInterlock03 := TRUE,
+	BackwardsInterlock04 := TRUE,
+	BackwardsInterlock05 := TRUE,
+	ForwardInterlock01 := NOT PRG_AtTransfer02.intnFBSensor.outSensorON,
+	ForwardInterlock02 := NOT PRG_TransferLeft02.intnFBMotor.outRunning,
+	ForwardInterlock03 := TRUE,
+	ForwardInterlock04 := TRUE,
+	ForwardInterlock05 := TRUE,
+	oStsInterlockOK => intnFBMotor.inIntlkOK,
+);
+
+intnFBMotor (
+	inStart := GVL.StartMachine,
+	outOTE => Load_2,
+);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

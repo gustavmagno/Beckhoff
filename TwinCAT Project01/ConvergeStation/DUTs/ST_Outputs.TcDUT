@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Outputs" Id="{0e1b411a-36eb-4056-90fc-340b3fc6c7a5}">
+    <Declaration><![CDATA[TYPE ST_Outputs :
+STRUCT
+	Conveyor_1 : BOOL;
+	Load_1 : BOOL;
+	Unload_1 : BOOL;
+	Transfer_Right_1 : BOOL;
+	Transfer_Left_1 : BOOL;
+	Conveyor_2: BOOL;
+	Load_2 : BOOL;
+	Unload_2 : BOOL;
+	Transfer_Right_2 : BOOL;
+	Transfer_Left_2 : BOOL;
+	Exit_Conveyor: BOOL;
+	Start_Light: BOOL;
+	Reset_Light : BOOL;
+	Stop_Light: BOOL;
+	Counter : INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

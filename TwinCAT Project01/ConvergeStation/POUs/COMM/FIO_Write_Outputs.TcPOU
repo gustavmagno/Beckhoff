@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FIO_Write_Outputs" Id="{32fd3439-14b3-4bb1-9dbe-28d883f9041a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM FIO_Write_Outputs
+VAR
+	
+	WriteCoilsErrorID: UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GVL.WriteCoils (
+	sIPAddr := '127.0.0.1',
+	nTCPPort := 505,
+	nUnitID := 255,
+	nQuantity := 16,
+	nMBAddr := 0,
+	cbLength := SIZEOF(GVL.FIO_Outputs),
+	pSrcAddr := ADR(GVL.FIO_Outputs),
+	bExecute := TRUE,
+	tTimeout := T#1S,
+	bBusy => ,
+	bError => ,
+	nErrId => WriteCoilsErrorID
+	
+);
+GVL.WriteCoils(bExecute := FALSE);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

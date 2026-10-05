@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Intlk" Id="{2cb04861-3e81-47e4-ba54-c8fad2647e93}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_Intlk
+VAR_INPUT
+	ForwardInterlock01, ForwardInterlock02, ForwardInterlock03, ForwardInterlock04, ForwardInterlock05: BOOL;
+	BackwardsInterlock01, BackwardsInterlock02, BackwardsInterlock03, BackwardsInterlock04, BackwardsInterlock05 : BOOL;
+END_VAR
+VAR_OUTPUT
+	oStsInterlockOK : BOOL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[oStsInterlockOK := 	ForwardInterlock01 AND 
+					ForwardInterlock02 AND 
+					ForwardInterlock03 AND 
+					ForwardInterlock04 AND 
+					ForwardInterlock05 AND 
+					BackwardsInterlock01 AND 
+					BackwardsInterlock02 AND 
+					BackwardsInterlock03 AND 
+					BackwardsInterlock04 AND 
+					BackwardsInterlock05;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

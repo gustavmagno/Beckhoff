@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_AtExit01" Id="{864bb69f-ed22-42bd-ad26-22a154b87f8b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_AtExit01
+VAR
+	intnFBSensor : FB_Sensors;
+	FEdge : F_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[intnFBSensor (
+	iSensor := At_Exit,
+	iTimeToActuateSensor := 0,
+);
+
+FEdge (
+	CLK := intnFBSensor.outSensorON,
+	Q => GVL.AtExitPulse,
+);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="IO" Id="{91f6955e-222d-42e9-814c-3885e5f7605d}">
+    <Declaration><![CDATA[
+VAR_GLOBAL
+	At_Entry_1 : BOOL;
+	At_Entry_2 : BOOL;
+	At_Transfer_1 : BOOL;
+	At_Transfer_2 : BOOL;
+	At_Exit : BOOL;
+	Start : BOOL;
+	Reset : BOOL;
+	Stop : BOOL;
+	Emergency_Stop : BOOL;
+	Auto : BOOL;
+	
+	Conveyor_1 : BOOL;
+	Load_1 : BOOL;
+	Unload_1 : BOOL;
+	Transfer_Right_1 : BOOL;
+	Transfer_Left_1 : BOOL;
+	Conveyor_2 : BOOL;
+	Load_2 : BOOL;
+	Unload_2 : BOOL;
+	Transfer_Right_2 : BOOL;
+	Transfer_Left_2 : BOOL;
+	Exit_Conveyor : BOOL;
+	Start_Light : BOOL;
+	Reset_Light : BOOL;
+	Stop_Light : BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

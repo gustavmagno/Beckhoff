@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Motors" Id="{1ee8bdc1-132c-42da-97d8-464190c90e99}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Motors
+VAR_INPUT
+	inIntlkOK : BOOL;
+	inStart : BOOL;
+END_VAR
+VAR_OUTPUT
+	outOTE: BOOL;
+	outRunning : bool;
+	outStopped : BOOL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF inIntlkOK AND inStart THEN
+	outOTE := TRUE;
+	outRunning := TRUE;
+	outStopped := FALSE;
+	ELSE
+	outStopped := TRUE;
+	outRunning := FALSE;
+	outOTE := FALSE;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

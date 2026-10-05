@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_TransferLeft02" Id="{e34ab2aa-bf5f-43df-835c-6bff5ec08c0b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_TransferLeft02
+VAR
+	intnFBMotor : FB_Motors;
+	intnFBIntlk : FB_Intlk;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[intnFBIntlk (
+	BackwardsInterlock01 := TRUE,
+	BackwardsInterlock02 := TRUE,
+	BackwardsInterlock03 := TRUE,
+	BackwardsInterlock04 := TRUE,
+	BackwardsInterlock05 := TRUE,
+	ForwardInterlock01 := NOT PRG_AtTransfer01.intnFBSensor.outSensorON OR NOT PRG_AtEntry01.intnFBSensor.outSensorON,
+	ForwardInterlock02 := PRG_AtTransfer02.intnFBSensor.outSensorON OR NOT PRG_Load02.intnFBMotor.outRunning,
+	ForwardInterlock03 := NOT PRG_AtTransfer01.intnFBSensor.outSensorON AND NOT PRG_AtEntry01.intnFBSensor.outSensorON OR NOT PRG_AtExit01.intnFBSensor.outSensorON,
+	ForwardInterlock04 := GVL.TransferOKToStart,
+	ForwardInterlock05 := TRUE,
+	oStsInterlockOK => intnFBMotor.inIntlkOK,
+);
+
+intnFBMotor (
+	inStart := GVL.StartMachine AND PRG_AtTransfer02.intnFBSensor.outSensorON OR PRG_TransferLeft01.intnFBMotor.outRunning,
+	outOTE => Transfer_Left_2,
+);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
